@@ -65,6 +65,10 @@ body {
   border: 1px solid white;
   border-radius: 15px;
 
+  &:hover {
+    cursor: pointer;
+  }
+
   &_sun {
     background-image: url("./assets/summer-bg.jpg");
   }
@@ -75,5 +79,28 @@ body {
 
   &_cloud_snow {
     background-image: url("./assets/winter-bg.jpg");
+  }
+}
+.icon {
+  display: flex;
+  width: 4rem;
+  height: auto;
+  padding: 0.5rem;
+  transition: 0.3s;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  box-shadow: 0 0 10px 2px white;
+
+  &:hover {
+    box-shadow: 0 0 20px 2px white;
+  }
+}
+
+#volume-control {
+  margin-top: 20px;
+  width: 180px;
+
+  &:hover {
+    cursor: pointer;
   }
 }
