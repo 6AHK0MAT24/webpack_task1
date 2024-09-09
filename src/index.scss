@@ -38,22 +38,31 @@ body {
   filter: blur(10px);
 }
 
+.buttons-container {
+  display: flex;
+  flex-direction: row;
+}
+
 .btn {
   display: flex;
   justify-content: center;
   align-items: center;
   background-size: cover;
   transition: 0.3s;
+  width: 12rem;
+  height: 12rem;
+  border: 1px solid white;
+  border-radius: 15px;
 
-  &_summer {
+  &_sun {
     background-image: url("./assets/summer-bg.jpg");
   }
 
-  &_rain {
+  &_cloud_rain {
     background-image: url("./assets/rainy-bg.jpg");
   }
 
-  &_wintwer {
+  &_cloud_snow {
     background-image: url("./assets/winter-bg.jpg");
   }
 }
