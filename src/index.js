@@ -1,8 +1,9 @@
 import summerImg from './assets/summer-bg.jpg'
 import { weather } from "./CONSTANTS/weather-mock";
+import pauseIco from "./assets/icons/pause.svg";
 import './index.scss'
 
-const pageMain = {
+const mainPage = {
     icon: {
         'rain': document.querySelector('.icon_cloud-rain'),
         'winter': document.querySelector('.icon_cloud-snow'),
@@ -14,21 +15,43 @@ const pageMain = {
         'summer': document.querySelector('.btn_sun'),
     },
     bg: document.querySelector('.bg-img'),
+    volumeControl: document.querySelector('#volume-control')
 }
 
 
 const changeWeather = (clickedWeather) => {
-    pageMain.bg.src = weather[clickedWeather].bg
+    mainPage.bg.src = weather[clickedWeather].bg
+
+    Object.keys(weather).forEach(key => {
+        if (clickedWeather !== key && !weather[key].audio.paused) {
+            weather[key].audio.pause()
+            mainPage.icon[key].src	= weather[key].icon
+        }
+    })
+
+    if (weather[clickedWeather].audio.paused) {
+        weather[clickedWeather].audio.play()
+        mainPage.icon[clickedWeather].src = pauseIco
+    } else {
+        weather[clickedWeather].audio.pause()
+        mainPage.icon[clickedWeather].src = weather[clickedWeather].icon
+    }
 }
 
 Object.keys(weather).forEach(key => {
-    pageMain.icon[key].src = weather[key].icon
+    mainPage.icon[key].src = weather[key].icon
 })
 
-pageMain.bg.src = summerImg
+mainPage.volumeControl.addEventListener('input', () => {
+    Object.keys(weather).forEach(key => {
+        weather[key].audio.volume = mainPage.volumeControl.value
+    })
+})
 
-Object.keys(pageMain.btn).forEach(key => {
-    pageMain.btn[key].addEventListener('click', () => {
+mainPage.bg.src = summerImg
+
+Object.keys(mainPage.btn).forEach(key => {
+    mainPage.btn[key].addEventListener('click', () => {
         switch (key) {
             case 'summer':
                 changeWeather('summer')
