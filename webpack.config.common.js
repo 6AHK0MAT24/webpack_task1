@@ -6,12 +6,22 @@ const path = require('path')
 module.exports = {
     context: path.resolve(__dirname, 'src'),
 
-    entry: './index.js',
+    // Изменяем entry на .ts файл
+    entry: './index.ts',
 
     output: {
         filename: '[name].[contenthash].js',
         path: path.resolve(__dirname, 'dist'),
         clean: true
+    },
+
+    // Добавляем resolve для расширений
+    resolve: {
+        extensions: ['.ts', '.tsx', '.js', '.jsx'],
+        alias: {
+            '@assets': path.resolve(__dirname, 'src/assets'),
+            '@constants': path.resolve(__dirname, 'src/CONSTANTS')
+        }
     },
 
     plugins: [
@@ -31,6 +41,12 @@ module.exports = {
 
     module: {
         rules: [
+            // Добавляем правило для TypeScript
+            {
+                test: /\.tsx?$/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
+            },
             {
                 test: /\.css$/i,
                 use: [MiniCssExtractPlugin.loader, 'css-loader'],
